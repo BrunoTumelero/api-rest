@@ -55,3 +55,18 @@ func DeleteStudent(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Aluno deletado com sucesso"})
 }
+
+func EditStudent(c *gin.Context) {
+	var student models.Aluno
+	id := c.Params.ByName("id")
+	database.DB.First(&student, id)
+
+	if err := c.ShouldBindJSON(&student); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error()})
+		return
+	}
+
+	database.DB.Model(&student).UpdateColumns(student)
+	c.JSON(http.StatusOK, student)
+}
