@@ -31,3 +31,10 @@ func CreateNew(c *gin.Context) {
 	database.DB.Create(&student)
 	c.JSON(http.StatusOK, student)
 }
+
+func FindStudent(c *gin.Context) {
+	var student models.Aluno
+	id := c.Params.ByName("id")
+	database.DB.First(&student, id)
+	c.JSON(http.StatusOK, student)
+}
