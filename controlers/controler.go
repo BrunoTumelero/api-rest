@@ -43,3 +43,15 @@ func FindStudent(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, student)
 }
+
+func DeleteStudent(c *gin.Context) {
+	var student models.Aluno
+	id := c.Params.ByName("id")
+	if student.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "Aluno inexistente"})
+	}
+	database.DB.Delete(&student, id)
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Aluno deletado com sucesso"})
+}
