@@ -50,6 +50,7 @@ func DeleteStudent(c *gin.Context) {
 	if student.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"message": "Aluno inexistente"})
+		return
 	}
 	database.DB.Delete(&student, id)
 	c.JSON(http.StatusOK, gin.H{
@@ -68,5 +69,19 @@ func EditStudent(c *gin.Context) {
 	}
 
 	database.DB.Model(&student).UpdateColumns(student)
+	c.JSON(http.StatusOK, student)
+}
+
+func FindCPF(c *gin.Context) {
+	var student models.Aluno
+	cpf := c.Param("cpf")
+	database.DB.Where(&models.Aluno{CPF: cpf}).First(&student)
+
+	if student.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "Aluno inexistente"})
+		return
+	}
+
 	c.JSON(http.StatusOK, student)
 }

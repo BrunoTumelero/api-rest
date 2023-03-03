@@ -14,5 +14,6 @@ func HandleRequests() {
 	r.GET("/alunos/:id", controlers.FindStudent)
 	r.DELETE("/alunos/:id", controlers.DeleteStudent)
 	r.PATCH("/alunos/:id", controlers.EditStudent)
+	r.GET("/alunos/cpf/:cpf", controlers.FindCPF)
 	r.Run()
 }
