@@ -28,6 +28,11 @@ func CreateNew(c *gin.Context) {
 			"error": err.Error()})
 		return
 	}
+	if err := models.Validation(&student); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error()})
+		return
+	}
 	database.DB.Create(&student)
 	c.JSON(http.StatusOK, student)
 }
