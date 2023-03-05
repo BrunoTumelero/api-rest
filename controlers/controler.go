@@ -90,3 +90,8 @@ func FindCPF(c *gin.Context) {
 
 	c.JSON(http.StatusOK, student)
 }
+
+func PagIndex(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"message": "Boas vindas"})
+}
